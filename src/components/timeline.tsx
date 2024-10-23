@@ -112,7 +112,7 @@ export function Timeline() {
                   isMain={row.main}
                   handleItemDrop={handleItemDrop}
                   handleItemDropShort={handleItemDropShort}
-                  setSelected={(e: any) => handleSetItem(row, e)}
+                  setSelected={(e: any) => !e ? setSelected(null) : handleSetItem(row, e)}
                   resizeItem={resizeItem}
                 />
               ))}

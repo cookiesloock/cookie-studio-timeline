@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useMouse } from "@uidotdev/usehooks";
 import Resize from './resize';
 
@@ -63,14 +63,25 @@ export function TimelineItem(props: any) {
   const containerClass = isMain ? '' : 'absolute top-0'
   const styles = isMain ? {} : { left: data.x }
 
-
-
   const xIntersecting = mouse.elementX > 0 && mouse.elementX < data.width;
   const yIntersecting = mouse.elementY > 0 && mouse.elementY < 40;
   const isIntersecting = xIntersecting && yIntersecting;
 
   const [isLeftHover, setLeftHver] = useState(false)
   const [isRightHover, setRightHver] = useState(false)
+  const [hasSelected, setHasSelected] = useState(selected)
+
+  useEffect(() => {
+    if(!selected) {
+      setLeftHver(false)
+      setRightHver(false)
+      setHasSelected(null)
+    } else {
+      setTimeout(() => {
+        setHasSelected(selected)
+      }, 100);
+    }
+  }, [selected])
 
   return (
     <div className={containerClass} style={styles}>
@@ -80,7 +91,7 @@ export function TimelineItem(props: any) {
             <span className={isIntersecting ? '' : ''}>{data.x}</span>
           </div>
         </Resize>
-        {selected?.item?.id ? (
+        {hasSelected?.item?.id ? (
           <>
             {isLeftHover ? <div
               style={{ width: selected?.item?.width, left: -selected?.item?.width }}
