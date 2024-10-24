@@ -40,19 +40,19 @@ function Resize({ children, active, data, resizeItem }: any) {
     <div className="">
       <div
         ref={sidebarRef}
-        className="app-sidebar h-10 bg-blue-400 border-2 border-white rounded-sm"
+        className="app-sidebar h-10 bg-zinc-500 border-2 border-white rounded-sm"
         style={{ width: sidebarWidth }}
         onMouseDown={(e) => e.preventDefault()}
       >
         <div className="app-sidebar-content relative overflow-hidden">
           <span className="opacity-0">.</span>
-          <div className="absolute top-0 left-0 px-2">
+          <div className="absolute top-0 left-0 h-full w-full select-none">
             {children}
           </div>
         </div>
         {!active && (
           <div
-            className="app-sidebar-resizer bg-blue-200"
+            className="app-sidebar-resizer bg-zinc-600"
             onMouseDown={startResizing}
           />
         )}
